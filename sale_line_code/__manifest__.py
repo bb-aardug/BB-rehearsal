@@ -22,7 +22,7 @@
     'website': "http://www.aardug.nl/",
     'depends': ['sale','account','stock','line_extraction'],
     'data': [
-            # 'view/sale_line.xml',
+            'view/sale_line.xml',
             'report/sale_and_invoce_report.xml'
             ],
     'license': 'LGPL-3',

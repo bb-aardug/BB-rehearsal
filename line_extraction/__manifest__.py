@@ -18,7 +18,7 @@
     'data': [
             'data/report_paper_formate.xml',
             'view/view_picking.xml',
-            # 'report/picking_report.xml'
+            'report/picking_report.xml'
             ],
     'license': 'LGPL-3',
     'installable': True,
