@@ -17,8 +17,8 @@
     'depends': ['base','sale','stock','sale_stock','mrp', 'product_expiry'],
     'data': [
             'data/report_paper_formate.xml',
-            # 'view/view_picking.xml',
-            # 'report/picking_report.xml'
+            'view/view_picking.xml',
+            'report/picking_report.xml'
             ],
     'license': 'LGPL-3',
     'installable': True,
