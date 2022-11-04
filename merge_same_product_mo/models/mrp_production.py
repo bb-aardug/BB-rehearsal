@@ -20,7 +20,8 @@ class MrpProductionInh(models.Model):
         for move in self.move_raw_ids:
             if move.state == 'done':
                 return_mv = moveObj.search([('move_dest_ids', '=', move.id)])
-                if return_mv.state not in ('done', 'cancel') and return_mv.picking_id:
-                    moves_to_cancel += return_mv
+                for r_mv in return_mv:
+                    if r_mv.state not in ('done', 'cancel') and r_mv.picking_id:
+                        moves_to_cancel += r_mv
         moves_to_cancel._action_cancel()
         return res
