@@ -28,26 +28,26 @@
             </field>
         </record>
         <!-- picking form-->
-<!--        <record id="view_picking_forms" model="ir.ui.view">-->
-<!--            <field name="name">stock.picking.form</field>-->
-<!--            <field name="model">stock.picking</field>-->
-<!--            <field name="inherit_id" ref="stock.view_picking_form" />-->
-<!--            <field name="arch" type="xml">-->
-<!--                <data>-->
-<!--                    <xpath expr="/form/sheet/notebook/page/field[@name='move_ids_without_package']/tree/field[@name='product_qty']" position="before">-->
-<!--                        <field name="pack_type" />-->
-<!--                        <field name="pack_amount" />-->
-<!--                        <field name="pack_weight" />-->
-<!--                        <field name="origin_id" string="Origin"/>-->
-<!--                    </xpath>-->
-<!--                    <xpath expr="/form/sheet/notebook/page/field[@name='move_ids_without_package']/tree/button[@name='action_assign_serial']" position="after">-->
-<!--                        <field name="lot_ids" widget="many2many_tags" invisible="0"/>-->
-<!--                        <button name="action_lots_form" type="object" icon="fa-barcode" attrs="{'invisible': [('lot_ids', '=', [])]}"/>-->
-<!--                        <button name="print_lots_barcode" type="object" icon="fa-print" attrs="{'invisible': [('lot_ids', '=', [])]}"/>-->
-<!--                    </xpath>-->
-<!--                </data>-->
-<!--            </field>-->
-<!--        </record>-->
+        <record id="view_picking_forms" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='move_ids_without_package']/tree/field[@name='product_qty']" position="before">
+                        <field name="x_aa_bb_pack_type_id" />
+                        <field name="x_aa_bb_pack_amount" />
+                        <field name="x_aa_bb_pack_weight" />
+                        <field name="x_aa_bb_origin_id" string="Origin"/>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='move_ids_without_package']/tree/button[@name='action_assign_serial']" position="after">
+                        <field name="x_aa_bb_lot_ids" widget="many2many_tags" invisible="0"/>
+                        <button name="action_lots_form" title="Lots/Serial" type="object" icon="fa-barcode" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/>
+                        <button name="print_lots_barcode" title="Print Barcode" type="object" icon="fa-print" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
 
         <record id="view_stock_move_line_detailed_operation_tree_inh" model="ir.ui.view">
             <field name="name">stock.move.line.tree.inh</field>
@@ -62,9 +62,9 @@
                         <field name="x_aa_bb_origin_id" string="Origin"/>
                     </xpath>
                     <xpath expr="//tree/field[@name='product_uom_id']" position="after">
-                        <field name="x_aa_bb_lot_ids" widget="many2many_tags" invisible="1"/>
-                        <button name="action_lots_form" type="object" icon="fa-barcode" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/>
-                        <button name="print_lots_barcode" type="object" icon="fa-print" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/>
+                        <!-- <field name="x_aa_bb_lot_ids" widget="many2many_tags" invisible="0"/> -->
+                        <!-- <button name="action_lots_form" type="object" icon="fa-barcode" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/>
+                        <button name="print_lots_barcode" type="object" icon="fa-print" attrs="{'invisible': [('x_aa_bb_lot_ids', '=', [])]}"/> -->
                     </xpath>
                 </data>
             </field>
