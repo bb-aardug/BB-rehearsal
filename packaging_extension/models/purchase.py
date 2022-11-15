@@ -172,16 +172,18 @@ class StockMoveLine(models.Model):
     x_aa_bb_pack_type_id = fields.Many2one('product.packaging', string="Pack Type")
     x_aa_bb_pack_amount = fields.Float(string="Pack Amount")
     x_aa_bb_pack_weight = fields.Float(string="Pack Weight")
-    x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number', compute = "_assign_packlots")
+    x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number',
+        compute = "_assign_packlots", store=True)
     x_aa_bb_origin_id = fields.Many2one('res.country', string="Origin")
 
 
     def _assign_packlots(self):
-        for rec in self:
-            if rec.move_line_ids:
-                for move_id in rec.move_line_ids:
-                    if move_id.lot_id:
-                        rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
+        # for rec in self:
+        #     if rec.move_line_ids:
+        #         for move_id in rec.move_line_ids:
+        #             if move_id.lot_id:
+        #                 rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
+        return False
 
     def action_lots_form(self):
         action = self.env.ref('stock.action_production_lot_form').read()[0]
