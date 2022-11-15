@@ -177,6 +177,7 @@ class StockMoveLine(models.Model):
     x_aa_bb_origin_id = fields.Many2one('res.country', string="Origin")
 
 
+    @api.depends('move_line_ids.lot_id')
     def _assign_packlots(self):
         for rec in self:
             if rec.move_line_ids:
