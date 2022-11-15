@@ -172,29 +172,29 @@ class StockMoveLine(models.Model):
     x_aa_bb_pack_type_id = fields.Many2one('product.packaging', string="Pack Type")
     x_aa_bb_pack_amount = fields.Float(string="Pack Amount")
     x_aa_bb_pack_weight = fields.Float(string="Pack Weight")
-    x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number',
-        compute = "_assign_packlots", store=True)
+    # x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number',
+    #     compute = "_assign_packlots", store=True)
     x_aa_bb_origin_id = fields.Many2one('res.country', string="Origin")
 
 
-    @api.depends('move_line_ids.lot_id')
-    def _assign_packlots(self):
-        for rec in self:
-            if rec.move_line_ids:
-                for move_id in rec.move_line_ids:
-                    if move_id.lot_id:
-                        rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
+    # @api.depends('move_line_ids.lot_id')
+    # def _assign_packlots(self):
+    #     for rec in self:
+    #         if rec.move_line_ids:
+    #             for move_id in rec.move_line_ids:
+    #                 if move_id.lot_id:
+    #                     rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
 
     def action_lots_form(self):
         action = self.env.ref('stock.action_production_lot_form').read()[0]
-        if len(self.x_aa_bb_lot_ids.ids) == 1 :
-            action['domain'] = [('id', 'in', self.x_aa_bb_lot_ids.id)]
+        if len(self.lot_ids.ids) == 1 :
+            action['domain'] = [('id', 'in', self.lot_ids.id)]
             action['views'] = [(self.env.ref('stock.view_production_lot_form').id, 'form')]
-            action['res_id'] = self.x_aa_bb_lot_ids.id
+            action['res_id'] = self.lot_ids.id
         else :
-            action['domain'] = [('id', 'in', self.x_aa_bb_lot_ids.ids)]
+            action['domain'] = [('id', 'in', self.lot_ids.ids)]
             action['views'] = [(self.env.ref('stock.view_production_lot_tree').id, 'tree')]
-            action['res_id'] = self.x_aa_bb_lot_ids.ids
+            action['res_id'] = self.lot_ids.ids
         return action
 
     def print_lots_barcode(self):
@@ -218,22 +218,22 @@ class StockMoveLine(models.Model):
     #         rec.x_aa_bb_lot_ids = [[6, False, [rec.lot_id.id]]]
 
     # for open Lot/serial Number view using button click
-    # def action_lots_form(self):
-    #     action = self.env.ref('stock.action_production_lot_form').read()[0]
-    #     if len(self.x_aa_bb_lot_ids.ids) == 1 :
-    #         action['domain'] = [('id', 'in', self.x_aa_bb_lot_ids.id)]
-    #         action['views'] = [(self.env.ref('stock.view_production_lot_form').id, 'form')]
-    #         action['res_id'] = self.x_aa_bb_lot_ids.id
-    #     else :
-    #         action['domain'] = [('id', 'in', self.x_aa_bb_lot_ids.ids)]
-    #         action['views'] = [(self.env.ref('stock.view_production_lot_tree').id, 'tree')]
-    #         action['res_id'] = self.x_aa_bb_lot_ids.ids
-    #     return action
+    def action_lots_form(self):
+        action = self.env.ref('stock.action_production_lot_form').read()[0]
+        if len(self.lot_ids.ids) == 1 :
+            action['domain'] = [('id', 'in', self.lot_ids.id)]
+            action['views'] = [(self.env.ref('stock.view_production_lot_form').id, 'form')]
+            action['res_id'] = self.lot_ids.id
+        else :
+            action['domain'] = [('id', 'in', self.lot_ids.ids)]
+            action['views'] = [(self.env.ref('stock.view_production_lot_tree').id, 'tree')]
+            action['res_id'] = self.lot_ids.ids
+        return action
 
-    # def print_lots_barcode(self):
-    #     self.write({'printed': True})
-    #     # move_line = self.env['stock.move.line']
-    #     return self.env.ref('lot_barcode.action_report_lot_barcode_big_extend').report_action(self)
+    def print_lots_barcode(self):
+        # self.write({'printed': True})
+        # move_line = self.env['stock.move.line']
+        return self.env.ref('lot_barcode.action_report_lot_barcode_big_extend').report_action(self)
 
     def create(self, vals):
         res = super(StockMoveLine, self).create(vals)
