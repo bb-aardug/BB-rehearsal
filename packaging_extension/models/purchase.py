@@ -172,7 +172,7 @@ class StockMoveLine(models.Model):
     x_aa_bb_pack_type_id = fields.Many2one('product.packaging', string="Pack Type")
     x_aa_bb_pack_amount = fields.Float(string="Pack Amount")
     x_aa_bb_pack_weight = fields.Float(string="Pack Weight")
-    x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number', compute = "_assign_packlots", store=True)
+    x_aa_bb_lot_ids = fields.Many2many('stock.production.lot', string='Lot/Serial Number', compute = "_assign_packlots")
     x_aa_bb_origin_id = fields.Many2one('res.country', string="Origin")
 
 
