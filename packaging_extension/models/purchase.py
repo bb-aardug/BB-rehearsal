@@ -178,12 +178,11 @@ class StockMoveLine(models.Model):
 
 
     def _assign_packlots(self):
-        # for rec in self:
-        #     if rec.move_line_ids:
-        #         for move_id in rec.move_line_ids:
-        #             if move_id.lot_id:
-        #                 rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
-        return False
+        for rec in self:
+            if rec.move_line_ids:
+                for move_id in rec.move_line_ids:
+                    if move_id.lot_id:
+                        rec.x_aa_bb_lot_ids = [[6, False, [move_id.lot_id.id]]]
 
     def action_lots_form(self):
         action = self.env.ref('stock.action_production_lot_form').read()[0]
